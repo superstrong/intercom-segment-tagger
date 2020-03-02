@@ -2,7 +2,9 @@ function intercomTagger() {
 
   // Make it your own
   var target = "contacts"; // set to either "contacts" or "companies"
-  var desiredTag = ""; // e.g., "New Tag 1". tag name must match existing tag exactly or a new tag will be created
+  var desiredTag = "New Tag 1"; // e.g., "New Tag 1". Tag name must match exactly.
+    // If target is companies and the tag name doesn't exist, a new tag will be created
+    // If target is contacts and the tag name doesn't exist, the task will fail with an explanation
   var segmentId = ""; // e.g., "5c1d18fddf74c998cb0a9dcd" get this from the URL while viewing a segment
   var ownerEmail = ""; // email address to notify of errors and optional script results
   var sendResultEmails = true; // true or false -- do you want to be notified every time the script runs?
@@ -149,9 +151,11 @@ function intercomTagger() {
     var scriptProperties = PropertiesService.getScriptProperties();
     var storedTags = JSON.parse(scriptProperties.getProperty('TAGS'));
     var tagId = null;
-    for (var i = 0; i < storedTags.length; i++) {
-      if (storedTags[i]["name"] == desiredTag) {
-        var tagId = storedTags[i]["id"];
+    if (storedTags) {
+      for (var i = 0; i < storedTags.length; i++) {
+        if (storedTags[i]["name"] == desiredTag) {
+          var tagId = storedTags[i]["id"];
+        }
       }
     }
     return tagId;
@@ -256,7 +260,7 @@ function intercomTagger() {
       Logger.log("Contacts items: " + items);
       
       // prepare the Intercom API object
-      var applyList = items;
+      var applyList = items
       return applyList;
     } else {
       var jobResult = "did not apply any tags.";
