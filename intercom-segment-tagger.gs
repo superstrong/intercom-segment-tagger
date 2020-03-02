@@ -2,7 +2,7 @@ function intercomTagger() {
 
   // Make it your own
   var target = "contacts"; // set to either "contacts" or "companies"
-  var desiredTag = "New Tag 1"; // e.g., "New Tag 1". Tag name must match exactly.
+  var desiredTag = "Test failure tag"; // e.g., "New Tag 1". Tag name must match exactly.
     // If target is companies and the tag name doesn't exist, a new tag will be created
     // If target is contacts and the tag name doesn't exist, the task will fail with an explanation
   var segmentId = ""; // e.g., "5c1d18fddf74c998cb0a9dcd" get this from the URL while viewing a segment
@@ -304,7 +304,7 @@ function intercomTagger() {
         getTagIdSuccess = true;
         applyContactsTag(applyList,desiredTagId);
         t = 2;
-      } else {
+      } else if (t < 1) {
         Logger.log("Did not find the tag ID. Updating the tags list.");
         updateTags();
       }
