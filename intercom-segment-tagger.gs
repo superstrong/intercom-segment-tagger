@@ -260,7 +260,7 @@ function intercomTagger() {
       Logger.log("Contacts items: " + items);
       
       // prepare the Intercom API object
-      var applyList = items
+      var applyList = items;
       return applyList;
     } else {
       var jobResult = "did not apply any tags.";
